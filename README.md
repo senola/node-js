@@ -1,5 +1,5 @@
 #node.js中文资料导航
-
+## node.js 新手教程 http://nqdeng.github.io/7-days-nodejs/
 ##Node.js 
 + [HomePage](http://www.nodejs.org/)
 + [Infoq深入浅出Node.js系列（进阶必读）](http://www.infoq.com/cn/articles/what-is-nodejs)
