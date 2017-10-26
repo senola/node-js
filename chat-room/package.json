@@ -9,7 +9,10 @@
   "author": "senola",
   "license": "ISC",
   "dependencies": {
-  	"socket.io": "~0.9.6",
-  	"mime": "~1.2.7"
+    "socket.io": "~0.9.6",
+    "mime": "~1.2.7"
+  },
+  "devDependencies": {
+    "zeparser": "^0.0.7"
   }
 }

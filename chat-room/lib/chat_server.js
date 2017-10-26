@@ -46,8 +46,8 @@ function joinRoom(socket, room) {
 	socket.join(room); // 让用户进入房间
 	currentRoom[socket.id] = room; // 记录当前房间
 	socket.emit('joinResult', {"room": room}); // 让用户知道他们进入的房间
-	socket.broadcast.to(room).emit('message', function() {
-		"text": nickName[socket.id] + 'has joined' + room + '.';
+	socket.broadcast.to(room).emit('message',  {
+		"text": nickName[socket.id] + 'has joined' + room + '.'
 	});
 
 	var usersInRoom = io.sockets.clients(room); // 确定有哪些用户在这个房间里
@@ -73,7 +73,7 @@ function joinRoom(socket, room) {
 function handleNameChangeAttempts(socket, nickNames, namesUsed) {
 	socket.on('nameAttempt', function(name){
 		if(name.toUpperCase().indexOf('GUEST') == 0) {
-			socket.emit('nameResult', function(){
+			socket.emit('nameResult', {
 				"success": false,
 				"message": '你输入的用户名不能包含guest！'
 			});
@@ -85,7 +85,7 @@ function handleNameChangeAttempts(socket, nickNames, namesUsed) {
 				nickNames[socket.io] = name;
 				delete namesUsed[previousNameIndex];  //删除之前用的用户名
 
-				socket.emit('nameResult',function(){
+				socket.emit('nameResult', {
 					"success": true,
 					"name": name
 				});
@@ -107,7 +107,7 @@ function handleNameChangeAttempts(socket, nickNames, namesUsed) {
 function handleMessageBroadcasting(socket, nickName) {
 	socket.on("message", function(message) {
 		socket.broadcast.to('message.room').emit('message', {
-			"text": nickNames[socket.id] + ': ' + message.text;
+			"text": nickNames[socket.id] + ': ' + message.text
 		});
 	});
 }
