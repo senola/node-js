@@ -9,3 +9,4 @@
 /.externalToolBuilders
 /.settings
 *.tmp
+node_modules
