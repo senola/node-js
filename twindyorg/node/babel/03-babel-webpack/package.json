@@ -1,0 +1,20 @@
+{
+  "name": "babel-webpack",
+  "version": "1.0.0",
+  "description": "babel-webpack",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^0.17.1",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "lodash": "^4.17.4",
+    "webpack": "^3.10.0"
+  }
+}

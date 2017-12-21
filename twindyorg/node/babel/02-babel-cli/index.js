@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const sayHello = () => {
     console.log("hello babel");
 }
