@@ -1,11 +1,13 @@
-import _ from 'lodash';
 
-function sayHello() {
-    const ele = document.createElement('div');
-    
-    ele.innerHTML = _.join(['hello', 'webpack'], '');
+function getComponent() {
+    return import('axios').then(_ => {
+        var element = document.createElement('div');
+        
+            element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+           return element;
+    }).catch(error => 'An error occurred while loading the component');
+};
 
-    return ele;
-}
-
-document.body.append(sayHello());
+getComponent().then(c => {
+    document.body.appendChild(component);
+})

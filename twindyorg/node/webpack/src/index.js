@@ -1,5 +1,13 @@
 import css from './style.css';
 
-const sayHello = ()=> {
-    return "hello world";
-}
+async function getComponent() {
+    const _ = await import('lodash');
+    const element = document.createElement('h1');
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+
+    return element;
+};
+
+getComponent().then(p => {
+    document.body.appendChild(p);
+})

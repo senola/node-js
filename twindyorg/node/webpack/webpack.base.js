@@ -1,16 +1,22 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
+function resolve (dir) {
+    return path.join(__dirname, '..', dir)
+}
 module.exports = {
     entry: './src/index.js',
     output: {
-        filename: 'bundle.js',
+        filename: '[hash].bundle.js',
+        chunkFilename: '[name].chunk.js',
         path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [
             // babel loader
-            { test: /\.js$/, exclude: /node_modules/, use: "babel-loader" },
+            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
             // css loader
             { 
                 test: /\.css$/, 
@@ -32,6 +38,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin()
+        new CleanWebpackPlugin(['dist']), // 重新编译时先清理输出目录
+        new HtmlWebpackPlugin()
     ]
 };
