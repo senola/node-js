@@ -1,16 +1,16 @@
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const base = require('./webpack.base');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const path = require('path');
 
 module.exports = merge(base, {
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: './dist',
-        hot: true
+        contentBase:  path.join(__dirname, 'dist'),
+        compress: true, // 开启gzip压缩
+        hot: true // 热更新
     },
     plugins: [
-        new BundleAnalyzerPlugin(),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({

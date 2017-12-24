@@ -3,20 +3,28 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-function resolve (dir) {
-    return path.join(__dirname, '..', dir)
-}
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        main: './src/index.js',
+        vendor: [
+            'lodash',
+            'jquery'
+        ]
+    },
     output: {
-        filename: '[hash].bundle.js',
-        chunkFilename: '[name].chunk.js',
+        filename: '[name].[hash].js',
+        chunkFilename: '[name].[hash].js',
         path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [
             // babel loader
-            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" },
+            { 
+                test: /\.js$/, 
+                include: path.resolve(__dirname, "src"), 
+                exclude: /(node_modules|bower_components)/,
+                loader: "babel-loader"
+            },
             // css loader
             { 
                 test: /\.css$/, 
@@ -25,10 +33,21 @@ module.exports = {
                     'css-loader'
                 ] 
             },
-            // file-loader
+            // // file-loader
+            // {
+            //     test: /\.(png|svg|jpg|gif)$/,
+            //     use: ['file-loader']
+            // },
             {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: ['file-loader']
+                test: /\.(png|jpg|svg|gif)$/,
+                use: [
+                  {
+                    loader: 'url-loader',
+                    options: {
+                      limit: 81920
+                    }
+                  }
+                ]
             },
             // font
             {
@@ -39,6 +58,9 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(['dist']), // 重新编译时先清理输出目录
-        new HtmlWebpackPlugin()
+        new HtmlWebpackPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'
+        })
     ]
 };
