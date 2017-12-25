@@ -7,8 +7,7 @@ module.exports = {
     entry: {
         main: './src/index.js',
         vendor: [
-            'lodash',
-            'jquery'
+            'lodash'
         ]
     },
     output: {
@@ -30,7 +29,11 @@ module.exports = {
                 test: /\.css$/, 
                 use: [
                     'style-loader',
-                    'css-loader'
+                    { 
+                        loader: 'css-loader', 
+                        options: { importLoaders: 1 } 
+                    },
+                    'postcss-loader'
                 ] 
             },
             // // file-loader
