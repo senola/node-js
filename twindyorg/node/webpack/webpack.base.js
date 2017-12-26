@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -27,27 +27,32 @@ module.exports = {
             // css loader
             { 
                 test: /\.css$/, 
-                use: [
-                    'style-loader',
-                    { 
-                        loader: 'css-loader', 
-                        options: { importLoaders: 1 } 
-                    },
-                    'postcss-loader'
-                ] 
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                            {
+                                loader: 'css-loader',
+                                options: { importLoaders: 1 }
+                            }, 
+                            'postcss-loader'
+                        ]
+                  })
+                // use: [`
+                //     'style-loader',
+                //     { 
+                //         loader: 'css-loader', 
+                //         options: { importLoaders: 1 } 
+                //     },
+                //     'postcss-loader'
+                // ] 
             },
-            // // file-loader
-            // {
-            //     test: /\.(png|svg|jpg|gif)$/,
-            //     use: ['file-loader']
-            // },
             {
                 test: /\.(png|jpg|svg|gif)$/,
                 use: [
                   {
                     loader: 'url-loader',
                     options: {
-                      limit: 81920
+                      limit: 8192
                     }
                   }
                 ]
@@ -60,10 +65,17 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(['dist']), // 重新编译时先清理输出目录
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'webpack-demo',
+            inject: true,
+            favicon: 'favicon.ico'
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor'
+        }),
+        new ExtractTextPlugin({
+            filename: 'app.[contenthash].css',
+            allChunks: true
         })
     ]
 };

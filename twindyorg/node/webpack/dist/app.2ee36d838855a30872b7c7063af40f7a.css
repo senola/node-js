@@ -1,0 +1,37 @@
+@-webkit-keyframes animationExample {
+  from {
+      width: 0;
+  }
+  to {
+      width: 100%;
+  }
+}
+
+@keyframes animationExample {
+  from {
+      width: 0;
+  }
+  to {
+      width: 100%;
+  }
+}
+
+.animateThis {
+  -webkit-animation: animationExample 2s;
+          animation: animationExample 2s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.demo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  background: black url(5514eeefeb5941d5e0cd5fc025437287.jpg) fixed;
+}
