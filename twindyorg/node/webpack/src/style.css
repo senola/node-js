@@ -26,3 +26,6 @@ html {
   height: 100%;
   background: var(--body_bg_color) url('logo.jpg') fixed;
 }
+div {
+  lost-column: 1/3;
+}

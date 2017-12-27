@@ -32,7 +32,10 @@ module.exports = {
                     use: [
                             {
                                 loader: 'css-loader',
-                                options: { importLoaders: 1 }
+                                options: { 
+                                    importLoaders: 1, // 0 => no loaders (default); 1 => postcss-loader;
+                                    minimize: false
+                                }
                             }, 
                             'postcss-loader'
                         ]
